@@ -1,5 +1,4 @@
 import { useState } from "react";
-import dayjs from "dayjs";
 import { useQuery } from "react-query";
 
 import DoughnutChart from "@/components/charts/DoughnutChart";
@@ -27,19 +26,21 @@ import {
 import formatDate from "@/utils/formatDate";
 import Loader from "@/features/transactions/TransactionChart/Loader";
 
+import { useDates } from "@/context/dates";
+
 type AnalysisData = {
   categoryLabels: string[];
   data: number[];
 };
 
 const Analysis = () => {
+  const { dates, updateDates } = useDates();
   const [chartType, setChartType] = useState<string>("income");
-  const [days, setDays] = useState<Record<string, string>>({
-    startDay: dayjs(new Date()).startOf("month").format("MM/DD/YYYY"),
-    endDay: dayjs(new Date()).endOf("month").format("MM/DD/YYYY"),
-  });
 
-  const { getAnalysis } = useTransactionsApi(days);
+  const formatedStartDay = dates?.startDay ? formatDate(dates?.startDay) : "";
+  const formatedEndDay = dates?.endDay ? formatDate(dates?.endDay) : "";
+
+  const { getAnalysis } = useTransactionsApi();
 
   const {
     isLoading: incomeChartLoading,
@@ -47,7 +48,7 @@ const Analysis = () => {
     refetch: incomeRefetch,
   } = useQuery<AnalysisData>(
     "incomeChart",
-    async () => await getAnalysis({ ...days, type: "income" }),
+    async () => await getAnalysis({ ...dates, type: "income" }),
     {
       staleTime: Infinity,
     }
@@ -59,14 +60,16 @@ const Analysis = () => {
     refetch: expensivesRefetch,
   } = useQuery<AnalysisData>(
     "expensiveChart",
-    async () => await getAnalysis({ ...days, type: "expenses" }),
+    async () => await getAnalysis({ ...dates, type: "expenses" }),
     {
       staleTime: Infinity,
     }
   );
 
   const setDates = (dates: Record<string, string>) => {
-    setDays(dates);
+    if (updateDates) {
+      updateDates(dates);
+    }
     setTimeout(() => {
       incomeRefetch();
       expensivesRefetch();
@@ -115,7 +118,7 @@ const Analysis = () => {
       <section>
         <TransactionsMenu>
           <h3 className=" text-2xl">
-            {formatDate(days.startDay)} - {formatDate(days.endDay)}
+            {formatedStartDay} - {formatedEndDay}
           </h3>
           <FilterComponent setDates={setDates} />
         </TransactionsMenu>

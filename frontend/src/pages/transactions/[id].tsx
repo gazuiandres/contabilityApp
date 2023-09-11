@@ -202,6 +202,7 @@ const UpdateTransaction = () => {
               step={0.01}
               defaultValue={transaction.amount}
               name="amount"
+              min={1}
               type="number"
             />
           </div>

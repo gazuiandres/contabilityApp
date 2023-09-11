@@ -172,7 +172,7 @@ const AddRecordComponent = ({ onSubmit }: Iprops) => {
             <Label htmlFor="value" className="mb-3 block">
               Amount
             </Label>
-            <Input required step={0.01} name="amount" type="number" />
+            <Input required step={0.01} min={1} name="amount" type="number" />
           </div>
           <div className="mb-6">
             <Label htmlFor="description" className="mb-3 block">

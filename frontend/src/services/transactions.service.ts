@@ -2,11 +2,14 @@ import useAxiosAuth from "@/lib/axios/hooks/useAxiosAuth";
 import { TransactionType } from "@/types/transaction.type";
 const BASE_URL: string = "/transactions";
 
-const useTransactionsApi = (days: Record<string, string>) => {
+import { useDates } from "@/context/dates";
+
+const useTransactionsApi = () => {
   const axios = useAxiosAuth();
+  const { dates } = useDates();
 
   const getTransactions = async () => {
-    const params = new URLSearchParams(days).toString();
+    const params = new URLSearchParams(dates).toString();
     const { data } = await axios.get(`${BASE_URL}?${params}`);
     return data;
   };

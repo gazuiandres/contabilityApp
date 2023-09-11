@@ -1,8 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
 import Image from "next/image";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import dayjs from "dayjs";
 
 import MainLayout from "@/components/layout/MainLayout";
 import TransactionsMenu from "@/features/transactions/TransactionMenu";
@@ -14,15 +12,17 @@ import useTransactionsApi from "@/services/transactions.service";
 import formatDate from "@/utils/formatDate";
 import Loader from "@/features/transactions/TransactionsList/Loader";
 
+import { useDates } from "@/context/dates";
+
 export default function Home() {
-  const [days, setDays] = useState<Record<string, string>>({
-    startDay: dayjs(new Date()).startOf("month").format("MM/DD/YYYY"),
-    endDay: dayjs(new Date()).endOf("month").format("MM/DD/YYYY"),
-  });
+  const {dates, updateDates} = useDates()
+
+  const formatedStartDay = dates?.startDay ? formatDate(dates?.startDay) : ''
+  const formatedEndDay = dates?.endDay ? formatDate(dates?.endDay) : ''
 
   const queryClient = useQueryClient();
 
-  const { getTransactions, createTransaction } = useTransactionsApi(days);
+  const { getTransactions, createTransaction } = useTransactionsApi();
   const { isLoading, data, isError, refetch } = useQuery(
     "transactions",
     getTransactions,
@@ -42,7 +42,11 @@ export default function Home() {
   };
 
   const setDates = (dates: Record<string, string>) => {
-    setDays(dates);
+
+    if(updateDates) {
+      updateDates(dates)
+    }
+
     setTimeout(() => {
       refetch();
     }, 200);
@@ -58,7 +62,7 @@ export default function Home() {
         </h1>
         <TransactionsMenu>
           <h3 className="text-2xl">
-            {formatDate(days.startDay)} - {formatDate(days.endDay)}
+            {formatedStartDay} - {formatedEndDay}
           </h3>
           <FilterComponent setDates={setDates} />
         </TransactionsMenu>

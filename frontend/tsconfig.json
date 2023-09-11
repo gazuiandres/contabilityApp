@@ -20,6 +20,7 @@
       "@/features/*": ["src/features/*"],
       "@/mocks/*": ["src/mocks/*"],
       "@/utils/*": ["src/utils/*"],
+      "@/context/*": ["src/context/*"],
       "@/*": ["./src/*"]
     }
   },

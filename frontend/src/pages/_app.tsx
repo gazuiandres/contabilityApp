@@ -8,6 +8,7 @@ import type { AppProps } from "next/app";
 import "@/styles/globals.css";
 import { Toaster } from "@/components/ui/toaster"
 import MainLayout from "@/components/layout/MainLayout";
+import { DatesProvider } from "@/context/dates";
 
 import { Lato } from "next/font/google";
 
@@ -21,11 +22,13 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <MainLayout>
-          <main className={`${lato.className}`}>
-            <Component {...pageProps} />
-          </main>
-        </MainLayout>
+        <DatesProvider>
+          <MainLayout>
+            <main className={`${lato.className}`}>
+              <Component {...pageProps} />
+            </main>
+          </MainLayout>
+        </DatesProvider>
         <Toaster/>
       </QueryClientProvider>
     </SessionProvider>

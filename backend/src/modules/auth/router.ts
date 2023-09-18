@@ -2,10 +2,14 @@ import { Router } from 'express';
 import passport from 'passport';
 import authController from '.';
 
+import { schemaValidation } from '../../middlewares/validationSchema';
+import { credentialsSchema } from './validationSchemas';
+
+
 const authRouter = Router();
 
-authRouter.post('/login', authController.login.bind(authController));
-authRouter.post('/signup', authController.signUp.bind(authController));
+authRouter.post('/login', schemaValidation(credentialsSchema), authController.login.bind(authController));
+authRouter.post('/signup', schemaValidation(credentialsSchema), authController.signUp.bind(authController));
 authRouter.post('/refresh', authController.refreshToken.bind(authController));
 authRouter.get(
   '/email-recovery',

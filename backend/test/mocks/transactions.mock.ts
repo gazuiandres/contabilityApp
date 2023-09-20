@@ -24,3 +24,24 @@ export const orderedTransactions = [
     ],
   },
 ];
+
+export const getTransaction = {
+  _id: '64b202e047c659520f597r2d',
+  userId: "64b202e047c659520f597c2d",
+  amount: 10,
+  category: 'Health',
+  description: 'Macdonals',
+  type: 'expenses',
+  date: new Date('2023-10-13T04:00:00.000Z'),
+};
+
+export const getTransactionDeleted = {
+  _id: '64b202e047c659520f597r2d',
+  userId: "64b202e047c659520f597c2d",
+  amount: 10,
+  category: 'Health',
+  description: 'Macdonals',
+  type: 'expenses',
+  date: new Date('2023-10-13T04:00:00.000Z'),
+  _v: 0
+};

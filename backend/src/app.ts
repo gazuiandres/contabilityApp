@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 import config from './config';
 const app: Express = express();
 
@@ -10,6 +11,7 @@ import setupV1Routes from './routes/V1';
 import notFoundHandler from './middlewares/notFound.handler';
 import { errorHandler, logErrors, boomErrorHandler } from './middlewares/error.handlers';
 
+app.use(helmet());
 app.use(
   cors({
     origin: config.clientHost,
@@ -31,7 +33,7 @@ app.get('/health', (req, res) => {
 
 setupV1Routes(app);
 
-app.use(notFoundHandler)
+app.use(notFoundHandler);
 
 app.use(logErrors);
 app.use(boomErrorHandler);

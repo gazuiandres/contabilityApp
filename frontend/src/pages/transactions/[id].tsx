@@ -1,9 +1,10 @@
 import { useState } from "react";
+import Image from "next/image";
 import dayjs from "dayjs";
-import utc from 'dayjs/plugin/utc';
+import utc from "dayjs/plugin/utc";
+
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
-
 
 dayjs.extend(utc);
 
@@ -33,8 +34,8 @@ import useTransactionsApi from "@/services/transactions.service";
 const UpdateTransaction = () => {
   const [type, setType] = useState("income");
   const [date, setDate] = useState("");
-  const { query } = useRouter();
-  const { getTransaction, updateTransaction } = useTransactionsApi({});
+  const { query, back: backPage } = useRouter();
+  const { getTransaction, updateTransaction } = useTransactionsApi();
   const { toast } = useToast();
   const { getCategories } = useCategoriesApi();
 
@@ -51,7 +52,9 @@ const UpdateTransaction = () => {
         setType(value.type);
         const actualDate = `${dayjs(value.date).utc().format("YYYY")}-${dayjs(
           value.date
-        ).utc().format("MM")}-${dayjs(value.date).utc().format("DD")}`;
+        )
+          .utc()
+          .format("MM")}-${dayjs(value.date).utc().format("DD")}`;
         setDate(actualDate);
       },
     }
@@ -107,10 +110,18 @@ const UpdateTransaction = () => {
     }
   };
   return (
-    <section className=" w-[68%] mx-auto  pt-24 mb-20">
-      <h1 className="font-bold text-center text-2xl mb-12">
-        Update your record
-      </h1>
+    <section className=" w-[68%] mx-auto pt-24 mb-20">
+      <div className="mb-12 relative">
+        <Image
+          onClick={() => backPage()}
+          src="/icons/arrowLeft.svg"
+          className="absolute left-[-5%] top-[50%] translate-y-[-50%] cursor-pointer md:left-0"
+          width={22}
+          height={22}
+          alt="Go back icon"
+        />
+        <h1 className="font-bold text-center text-2xl ">Update your record</h1>
+      </div>
       {!isLoading && !incomesLoading && !expensesLoading && (
         <form onSubmit={handleSubmit}>
           <div className="mb-6">

@@ -9,7 +9,7 @@
     "build": "tsc",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.ts",
     "start:dev": "ts-node-dev src/index.ts",
-    "start:prod": "node dist/index.js",
+    "start:prod": "node ./dist/index.js",
     "seed:run": "node dist/db/seed/index.js"
   },
   "keywords": [],

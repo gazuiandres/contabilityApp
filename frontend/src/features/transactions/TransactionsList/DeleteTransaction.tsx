@@ -24,7 +24,7 @@ type IProps = {
 const DeleteTransaction = ({ id }: IProps) => {
   const [open, setOpen] = useState(false);
 
-  const { deleteTransaction } = useTransactionsApi({});
+  const { deleteTransaction } = useTransactionsApi();
   const { toast } = useToast();
   const router = useRouter();
 

@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src/**/*.ts",
     "lint:format": "eslint src/**/*.ts --fix",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.ts",
     "start:dev": "ts-node-dev src/index.ts",
     "start:prod": "node ./dist/index.js",

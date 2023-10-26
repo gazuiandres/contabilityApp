@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 const NavMobile = () => {
   return (
-    <nav className="text-white h-[3.8125rem] w-full bg-mainBlue fixed bottom-0 xl:hidden">
+    <nav className="text-white h-[3.8125rem] w-full bg-mainBlue fixed bottom-0 xl:hidden z-50">
       <ul className="flex w-full h-full justify-around items-center">
         <Link href="/" className="flex flex-col items-center">
           <Image

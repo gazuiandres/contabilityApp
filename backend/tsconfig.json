@@ -107,6 +107,7 @@
     "test/**/*.test.ts"
   ],
   "files": [
-    "src/index.ts"
+    "src/index.ts",
+    "src/db/seed/index.ts"
   ]
 }

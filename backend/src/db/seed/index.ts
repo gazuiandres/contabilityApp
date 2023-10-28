@@ -15,6 +15,8 @@ dbConnect()
     await seedData();
     await mongoose.disconnect();
   })
-  .catch(() => {
+  .catch((e: any) => {
     console.log('ERROR CONNECTING MONGO DB');
+    console.log(e)
+    mongoose.disconnect();
   });

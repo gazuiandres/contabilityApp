@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 async function seedAdminUser() {
   const adminUser = {
     email: 'admin@admin.com',
-    password: bcrypt.hash('adminPassword', 10),
+    password: await bcrypt.hash('adminPassword', 10),
     roles: ['admin'],
   };
 

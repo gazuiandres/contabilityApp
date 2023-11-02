@@ -8,6 +8,7 @@ export default {
   clientHost: process.env.CLIENT_HOST || 'http://localhost:3000',
   MONGO_DB_URI: process.env.MONGO_DB_URI || '',
   secretJWT: process.env.SECRET_JWT || '',
+  encryptSecret: process.env.ENCRYPT_SECRET || '',
   emailConfig: {
     host: process.env.SEND_EMAIL_HOST || '',
     user: process.env.SEND_EMAIL_USER || '',

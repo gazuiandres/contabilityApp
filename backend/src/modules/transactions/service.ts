@@ -17,7 +17,7 @@ import TransactionManagement from '../../libs/TransactionManagement';
 import { AnalyticDecripted, BasedAnalytics } from './dtos/analytic.dto';
 import { IEncryptManager } from 'src/global';
 
-class TransactionService {
+class TransactionService implements TransactionServiceInterface{
   constructor(
     private model: Model<BasedTransactionDto>,
     private transactionManagement: TransactionManagement,

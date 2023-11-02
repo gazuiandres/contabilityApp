@@ -9,7 +9,7 @@ const transactionSchema = new Schema<BasedTransactionDto>({
   },
   amount: {
     require: true,
-    type: Number,
+    type: Schema.Types.Mixed,
   },
   category: {
     require: true,

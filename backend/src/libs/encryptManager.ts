@@ -2,7 +2,7 @@ import CryptoJS from 'crypto-js';
 import config from '../config';
 
 class EncryptManager {
-  static encrypt(data: string) {
+  static encrypt(data: string | number) {
     const dataToString = `${data}`;
     return CryptoJS.AES.encrypt(dataToString, config.encryptSecret).toString();
   }

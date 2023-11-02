@@ -1,6 +1,6 @@
 export interface BasedTransactionDto {
   userId: string;
-  amount: number;
+  amount: string | number;
   category: string;
   description: string;
   type: string;

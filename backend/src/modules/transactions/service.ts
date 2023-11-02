@@ -14,10 +14,10 @@ import {
   TransactionsOptionDto,
 } from './dtos/transaction.dto';
 import TransactionManagement from '../../libs/TransactionManagement';
-import { BasedAnalytics } from './dtos/analytic.dto';
+import { AnalyticDecripted, BasedAnalytics } from './dtos/analytic.dto';
 import { IEncryptManager } from 'src/global';
 
-class TransactionService implements TransactionServiceInterface {
+class TransactionService {
   constructor(
     private model: Model<BasedTransactionDto>,
     private transactionManagement: TransactionManagement,
@@ -80,15 +80,43 @@ class TransactionService implements TransactionServiceInterface {
       };
     }
 
+    // Get raw data ordered by date
+
     const analytics: BasedAnalytics[] = await this.model.aggregate([
       { $match: options },
       { $sort: { date: -1 } },
-      { $group: { _id: '$category', total: { $sum: '$amount' } } },
-      { $project: { _id: 0, category: '$_id', total: '$total' } },
+      { $project: { _id: 0, category: 1, amount: 1 } },
     ]);
 
-    const data: number[] = analytics.map((data) => data.total);
-    const categoryLabels: string[] = analytics.map((data) => data.category);
+    // decrypt and group data total amount by category
+    const analyticsDecripted = analytics.reduce((acc: AnalyticDecripted, currentValue) => {
+      if (acc && acc[currentValue.category]) {
+        acc[currentValue.category].total += this.encryptService.decrypt(currentValue.amount, 'number') as number;
+
+        return acc;
+      }
+
+      acc[currentValue.category] = {
+        total: this.encryptService.decrypt(currentValue.amount, 'number') as number,
+        category: currentValue.category,
+      };
+
+      return acc;
+    }, {});
+
+    // Serialize data objects in an array
+    const analyticSerialized = [];
+
+    for (const key in analyticsDecripted) {
+      const analyticItem = analyticsDecripted[key];
+      analyticSerialized.push({
+        ...analyticItem,
+      });
+    }
+
+    // serialize data in separate category and totals labels to deliver to client chart
+    const data: number[] = analyticSerialized.map((data) => data.total);
+    const categoryLabels: string[] = analyticSerialized.map((data) => data.category);
 
     return {
       data,

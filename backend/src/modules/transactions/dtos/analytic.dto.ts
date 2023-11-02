@@ -1,9 +1,16 @@
 export interface BasedAnalytics {
   category: string;
-  total: number;
+  amount: string;
 }
 
 export interface ProcessedAnalytics {
   data: number[];
   categoryLabels: string[];
+}
+
+export interface AnalyticDecripted {
+  [key: string]: {
+    category: string;
+    total: number;
+  };
 }

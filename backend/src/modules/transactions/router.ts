@@ -22,26 +22,30 @@ transactionRouter.get(
 );
 transactionRouter.get(
   '/analytics',
-  checkRole(['user']),
+  checkRole(['user', 'admin']),
   schemaValidation(GetAnalyticsSchema),
   transactionController.getAnalytics.bind(transactionController),
 );
-transactionRouter.get('/:id', checkRole(['user', 'admin']), transactionController.getTransaction.bind(transactionController));
+transactionRouter.get(
+  '/:id',
+  checkRole(['user', 'admin']),
+  transactionController.getTransaction.bind(transactionController),
+);
 transactionRouter.post(
   '/',
-  checkRole(['user']),
+  checkRole(['user', 'admin']),
   schemaValidation(CreateTransactionSchema),
   transactionController.create.bind(transactionController),
 );
 transactionRouter.put(
   '/:id',
-  checkRole(['user']),
+  checkRole(['user', 'admin']),
   schemaValidation(UpdateTransactionSchema),
   transactionController.update.bind(transactionController),
 );
 transactionRouter.delete(
   '/:id',
-  checkRole(['user']),
+  checkRole(['user', 'admin']),
   schemaValidation(DeleteTransactionSchema),
   transactionController.delete.bind(transactionController),
 );

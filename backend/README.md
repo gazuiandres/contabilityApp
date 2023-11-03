@@ -12,11 +12,11 @@ Note: Nodemailer is config to use with gmail, if you want to use it you need to 
 
 MONGO_DB_URI="yourMongoUri"
 
-  
 
 CLIENT_HOST="http://127.0.0.1:3000"
 
   
+ENCRYPT_SECRET="YourSecretEncryptKey"
 
 # NODEMAILER SETUP
 

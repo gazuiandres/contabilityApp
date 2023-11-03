@@ -6,10 +6,11 @@ Web application that help keep a tracking for your incomes and expenses.
 
 ## Features
 
-- Show all your transactions by days
+- Show all your transactions by day
 - Filter for searching between two dates
 - Charts for analysis
 - Consult everywhere you have internet, it's a web application.
+- Transaction amount encrypted.
 
 ## Requirements
 

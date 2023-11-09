@@ -1,6 +1,10 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+import ErrorAlert from "@/components/alerts/errorAlert";
+import { Button } from "@/components/ui/button";
 
 import {
   Card,
@@ -13,23 +17,39 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const signin = () => {
+const Signin = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const router = useRouter();
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+    setIsLoading(true);
+    setIsError(false);
     const formData = new FormData(event.target);
-
-    await signIn("credentials", {
+    const res = await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     });
+
+    if (res?.ok) {
+      router.push("/");
+      return;
+    }
+
+    setIsLoading(false);
+    setIsError(true);
   };
   return (
     <Card className="w-[80vw] mx-auto mt-32 md:mt-60 max-w-[450px] xl:mt-32">
       <CardHeader>
         <CardTitle className="text-center">Login</CardTitle>
-        <CardDescription></CardDescription>
+        <CardDescription>
+          {isError && (
+            <ErrorAlert message="Your user or password is incorrect. Please try again." />
+          )}
+        </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent>
@@ -38,18 +58,34 @@ const signin = () => {
               <Label htmlFor="email" className="mb-2">
                 Email
               </Label>
-              <Input id="email" name="email" required placeholder="Your email" autoComplete="off" />
+              <Input
+                id="email"
+                name="email"
+                required
+                placeholder="Your email"
+                autoComplete="off"
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password" className="mb-2">
                 Password
               </Label>
-              <Input type="password" name="password" required id="Email" placeholder="Your password" />
+              <Input
+                type="password"
+                name="password"
+                required
+                id="Email"
+                placeholder="Your password"
+              />
             </div>
           </div>
         </CardContent>
         <CardFooter className="block">
-          <Button type="submit" className="w-full mb-6 block">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="w-full mb-6 block"
+          >
             Sign in
           </Button>
           <div className="w-full text-center">
@@ -63,4 +99,4 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default Signin;

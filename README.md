@@ -11,6 +11,7 @@ Web application that help keep a tracking for your incomes and expenses.
 - Charts for analysis
 - Consult everywhere you have internet, it's a web application.
 - Transaction amount encrypted.
+- PWA Functionality.
 
 ## Requirements
 

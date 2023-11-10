@@ -5,82 +5,82 @@ async function seedCategories() {
     {
       name: 'Bills',
       description: 'Bill category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Home',
       description: 'Home category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Car',
       description: 'Car category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Clothing',
       description: 'Clothing category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Education',
       description: 'Education category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Electronics',
       description: 'Electronics category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Entertainment',
       description: 'Entertainment category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Food',
       description: 'Food category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Health',
       description: 'Health category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Insurance',
       description: 'Insurance category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Shopping',
       description: 'Shopping category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Social',
       description: 'Social category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Sport',
       description: 'Sport category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Tax',
       description: 'Tax category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Transportation',
       description: 'Transportation category',
-      type: 'expensive',
+      type: 'expense',
     },
     {
       name: 'Telephone',
       description: 'Telephone category',
-      type: 'expensive',
+      type: 'expense',
     },
   ];
 

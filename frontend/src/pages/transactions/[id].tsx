@@ -67,12 +67,12 @@ const UpdateTransaction = () => {
     staleTime: Infinity,
   });
 
-  const { data: expensiveCategories, isLoading: expensesLoading } = useQuery<
+  const { data: expensesCategories, isLoading: expensesLoading } = useQuery<
     CategoryType[],
     Error
   >(
-    "categories-expensive",
-    async () => await getCategories({ type: "expensive" }),
+    "categories-expense",
+    async () => await getCategories({ type: "expense" }),
     {
       staleTime: Infinity,
     }
@@ -177,7 +177,7 @@ const UpdateTransaction = () => {
               </Select>
             )}
 
-            {type === "expenses" && expensiveCategories && (
+            {type === "expenses" && expensesCategories && (
               <Select
                 required
                 name="category"
@@ -190,7 +190,7 @@ const UpdateTransaction = () => {
                   <ScrollArea>
                     <SelectGroup className=" h-40">
                       <SelectLabel>Expenses Categories</SelectLabel>
-                      {expensiveCategories?.map((category) => (
+                      {expensesCategories?.map((category) => (
                         <SelectItem
                           key={category.name + category.type}
                           value={category.name}

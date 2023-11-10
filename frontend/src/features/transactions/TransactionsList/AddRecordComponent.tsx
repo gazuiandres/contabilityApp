@@ -48,9 +48,9 @@ const AddRecordComponent = ({ onSubmit }: Iprops) => {
     }
   );
 
-  const { data: expensiveCategories } = useQuery<CategoryType[], Error>(
-    "categories-expensive",
-    async () => await getCategories({ type: "expensive" }),
+  const { data: expensesCategories } = useQuery<CategoryType[], Error>(
+    "categories-expense",
+    async () => await getCategories({ type: "expense" }),
     {
       staleTime: Infinity,
     }
@@ -145,7 +145,7 @@ const AddRecordComponent = ({ onSubmit }: Iprops) => {
               </Select>
             )}
 
-            {type === "expenses" && expensiveCategories && (
+            {type === "expenses" && expensesCategories && (
               <Select required name="category">
                 <SelectTrigger className="w-full overflow-y-auto ">
                   <SelectValue placeholder="Select a category" />
@@ -154,7 +154,7 @@ const AddRecordComponent = ({ onSubmit }: Iprops) => {
                   <ScrollArea>
                     <SelectGroup className=" h-40">
                       <SelectLabel>Expenses Categories</SelectLabel>
-                      {expensiveCategories?.map((category) => (
+                      {expensesCategories?.map((category) => (
                         <SelectItem
                           key={category.name + category.type}
                           value={category.name}

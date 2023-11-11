@@ -2,7 +2,7 @@
 
 ## About
 
-Web application that help keep a tracking for your incomes and expenses.
+Web application that help you to keep a tracking for your incomes and expenses.
 
 ## Features
 

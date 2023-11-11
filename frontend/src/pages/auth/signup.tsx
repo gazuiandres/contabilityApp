@@ -12,22 +12,35 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import ErrorAlert from "@/components/alerts/ErrorAlert";
 import { useToast } from "@/components/ui/use-toast";
 
 import axios from "@/lib/axios";
+import { useState } from "react";
 
 const Signup = () => {
+  const [error, setError] = useState<null | string>(null);
   const router = useRouter();
   const { toast } = useToast();
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    await axios.post("/auth/signup", formData);
+    const email = formData.get("email")?.toString().toLowerCase();
+    const password = formData.get("password")?.toString();
+    const confirmPassword = formData.get("confirm_password")?.toString();
+
+    if (password !== confirmPassword) {
+      setError("Passwords are not the same");
+      return;
+    }
+    console.log({ email, password, confirmPassword });
+    await axios.post("/auth/signup", { email, password, confirmPassword });
     toast({
       title: "Registration success",
       description: "You will be redirected to signIn page",
     });
-    event.target.reset()
+    event.target.reset();
     setTimeout(() => {
       router.push("/auth/signin");
     }, 3000);
@@ -38,6 +51,7 @@ const Signup = () => {
       <CardHeader>
         <CardTitle className="text-center">Register</CardTitle>
         <CardDescription></CardDescription>
+        {error && <ErrorAlert message={error} />}
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent>

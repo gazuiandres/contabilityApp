@@ -28,8 +28,8 @@ const Signin = () => {
     setIsError(false);
     const formData = new FormData(event.target);
     const res = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
+      email: formData.get("email")?.toString().toLowerCase(),
+      password: formData.get("password")?.toString(),
       redirect: false,
     });
 
